@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <menuitem id="menu" name="Employee"/>
+        <menuitem id="employee_loan" name="Employee Loan" parent="menu1"/>
+    </data>
+</odoo>

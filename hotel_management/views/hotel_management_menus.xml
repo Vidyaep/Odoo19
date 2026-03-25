@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <menuitem id="menu1" name="Hotel"/>
+        <menuitem id="menu2" name="Configuration" parent="menu1" />
+        <menuitem id="menu3" name="Rooms" parent="menu2" action="hotel_room"/>
+        <menuitem id="menu4" name="Facility" parent="menu2" action="hotel_facility"/>
+        <menuitem id="menu5" name="Food items" parent="menu2" action="hotel_item"/>
+        <menuitem id="menu6" name="Food category" parent="menu2" action="hotel_category"/>
+
+        <menuitem id="menu7" name="Reception" parent="menu1"/>
+        <menuitem id="menu8" name="Accommodation" parent="menu7" action="hotel_accommodation"/>
+
+        <menuitem id="menu9" name="Order Food" parent="menu1" action="hotel_order_action"/>
+    </data>
+</odoo>

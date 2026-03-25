@@ -1,0 +1,75 @@
+<odoo>
+    <record id="hotel_order_form" model="ir.ui.view">
+        <field name="name">Order</field>
+        <field name="model">hotel.order</field>
+        <field name="arch" type="xml">
+            <form string="Order Food">
+                <sheet>
+                    <group>
+                        <field name="accommodation_id" domain="[('status','=','check-in')]"/>
+                        <field name="room_id" widget="many2many_tags"/>
+                        <field name="guests"/>
+                        <field name="order_date"/>
+                    </group>
+
+                    <notebook>
+                        <page string="Menu">
+                            <group>
+                                <field name="category_id" widget="many2many_tags"/>
+                            <field name="item_ids" options="{'no_create': True}" context="{'default_order_id':id}">
+                            <kanban create="false" action="action_order_kanban_wizard" type="object" >
+                            <templates>
+                             <t t-name="card" store="true">
+                                <div t-attf-class="oe_kanban_global_click" class="d-flex mt-1 mb-2" >
+                                    <div class="o_kanban_image">
+                                        <field name="image" widget="image"/>
+                                    </div>
+                                    <div class="o_kanban_details m-3">
+                                        <strong><field name="item_name"/></strong><br/>
+                                        <div class="text-muted"><field name="price"/></div><br/>
+                                        <field name="category"/>
+                                    </div>
+                                </div>
+                            </t>
+                            </templates>
+                            </kanban>
+                            </field>
+                            </group>
+                        </page>
+                       <page string="Order List">
+                           <field name="order_line_ids">
+                              <list create="false" edit="false" delete="false">
+                                  <field name="item_name"/>
+                                  <field name="quantity"/>
+                                  <field name="price"/>
+                                  <field name="subtotal"/>
+                              </list>
+                           </field>
+                           <b>Total : <field name="total"/></b>
+                       </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="hotel_order_lists" model="ir.ui.view">
+        <field name="name">Order</field>
+        <field name="model">hotel.order</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="accommodation_id"/>
+                <field name="room_id"/>
+                <field name="guests"/>
+                <field name="order_date"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="hotel_order_action" model="ir.actions.act_window">
+        <field name="name">Order Food</field>
+        <field name="res_model">hotel.order</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>
+

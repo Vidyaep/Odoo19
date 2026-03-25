@@ -9,6 +9,7 @@ class HotelKanban(models.TransientModel):
    description = fields.Char(string="Description")
 
    def add_list(self):
+      """Function to add items to list"""
       self.env['hotel.order.list'].create({
          'order_id': self.order_ids.id,
          'item_name': self.item_name,

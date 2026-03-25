@@ -12,6 +12,7 @@ class HotelPayment(models.Model):
 
     @api.depends('payment_line_ids.price')
     def _compute_total(self):
-        for rec in self:
-            rec.total_amount = sum(rec.payment_line_ids.mapped('price'))
+        """Function to calculate total amount"""
+        for record in self:
+            record.total_amount = sum(record.payment_line_ids.mapped('price'))
 

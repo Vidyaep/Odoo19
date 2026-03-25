@@ -13,6 +13,7 @@ class HotelItem(models.Model):
     description=fields.Char(string="Description")
 
     def action_order_kanban_wizard(self):
+        """Function to add items to kanban wizard"""
         self.ensure_one()
         order_id= self.env.context.get('default_order_id')
         return {

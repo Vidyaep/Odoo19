@@ -3,6 +3,7 @@
     'version': '1.0',
     'depends': ['base','mail','account','product'],
     'author': "Author Name",
+    'license':"",
     'category': 'Hotel Management',
     'sequence':-20,
     'description': """

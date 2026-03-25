@@ -13,6 +13,7 @@ class HotelOrderList(models.Model):
 
    @api.depends('price', 'quantity')
    def compute_subtotal(self):
+      """Function to calculate subtotal"""
       for record in self:
          record.subtotal = record.price * record.quantity
 

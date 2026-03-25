@@ -22,10 +22,12 @@ class HotelOrder(models.Model):
 
     @api.onchange('order_date')
     def compute_order_date(self):
+        """Function to compute order date"""
         self.order_date=fields.Datetime.now()
 
     @api.depends('accommodation_id')
     def compute_guests(self):
+        """Function to compute guests based on accommodation"""
         for record in self:
             record.guests = ""
             if record.accommodation_id:
@@ -39,10 +41,12 @@ class HotelOrder(models.Model):
 
     @api.onchange('category_id')
     def compute_category_id(self):
+        """Function to compute category id for searching"""
         for record in self:
             record.item_ids= self.env['hotel.item'].search([('category','=',record.category_id.ids)])
 
     @api.onchange('order_line_ids.subtotal')
     def compute_total(self):
+        """Function to compute total amount of order lines"""
         for record in self:
              record.total = sum(record.order_line_ids.mapped('subtotal'))

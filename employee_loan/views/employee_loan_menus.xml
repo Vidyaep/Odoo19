@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <data>
-        <menuitem id="menu" name="Employee"/>
-        <menuitem id="employee_loan" name="Employee Loan" parent="menu1"/>
+        <menuitem id="main_menu" name="Employee Loans"/>
+        <menuitem id="employee_loan_menu" name="Employee Loan" parent="main_menu" action="employee_loan_action"/>
+        <menuitem id="employee_loan_line_menu" name="Employee Loan Line" parent="main_menu" action="employee_loan_line_action"/>
     </data>
 </odoo>

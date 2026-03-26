@@ -1,4 +1,5 @@
 import datetime
+from email.policy import default
 
 from odoo import api, fields, models ,Command
 from odoo.addons.test_convert.tests.test_env import record
@@ -19,6 +20,7 @@ class HotelOrder(models.Model):
     total=fields.Float(string="Total",compute='compute_total')
     description=fields.Char(string="Description",store=True)
     order_line_ids = fields.One2many('hotel.order.list', 'order_id',string="Order Lines")
+    state = fields.Selection(selection=[('draft','Draft'),('received','Received'),('confirmed','Confirmed'),('cancelled','Cancelled')],string="State",default='draft')
 
     @api.onchange('order_date')
     def compute_order_date(self):
@@ -45,8 +47,20 @@ class HotelOrder(models.Model):
         for record in self:
             record.item_ids= self.env['hotel.item'].search([('category','=',record.category_id.ids)])
 
-    @api.onchange('order_line_ids.subtotal')
+    @api.depends('order_line_ids.subtotal')
     def compute_total(self):
         """Function to compute total amount of order lines"""
         for record in self:
              record.total = sum(record.order_line_ids.mapped('subtotal'))
+
+    def order_confirm(self):
+        """Function to perform operations when order confirmed"""
+        for record in self:
+            if record.order_line_ids:
+                record.state = 'confirmed'
+
+    def order_cancel(self):
+        """Function to perform operations when order cancelled"""
+        self.state = 'cancelled'
+
+

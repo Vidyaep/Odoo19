@@ -1,6 +1,7 @@
 from odoo import fields, models
 class EmployeeLoanLine(models.Model):
     _name = 'employee.loan.line'
+    _description = 'Employee Loan Line Model'
 
     loan_id = fields.Many2one('employee.loan',string='Loan')
     date = fields.Datetime(string='Date')

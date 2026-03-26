@@ -203,6 +203,7 @@ class HotelAccommodation(models.Model):
                 'quantity': 1,
                 'price': order.total
             }))
+
          if record.payment_id:
             record.payment_id.payment_line_ids = [Command.clear()] + lines
          elif lines:

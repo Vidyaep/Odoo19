@@ -4,6 +4,11 @@
         <field name="model">hotel.order</field>
         <field name="arch" type="xml">
             <form string="Order Food">
+                <header>
+                   <button name="order_confirm" string="Confirm" type="object" invisible="not order_line_ids"></button>
+                   <button name="order_cancel" string="Cancel" type="object" invisible="not order_line_ids"></button>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,received,confirmed,cancel"/>
+               </header>
                 <sheet>
                     <group>
                         <field name="accommodation_id" domain="[('status','=','check-in')]"/>
@@ -11,7 +16,6 @@
                         <field name="guests"/>
                         <field name="order_date"/>
                     </group>
-
                     <notebook>
                         <page string="Menu">
                             <group>

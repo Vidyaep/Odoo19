@@ -17,4 +17,5 @@ class HotelKanban(models.TransientModel):
          'price': self.price,
          'description': self.description,
       })
+      self.order_ids.state='received'
       return {'type': 'ir.actions.act_window_close'}

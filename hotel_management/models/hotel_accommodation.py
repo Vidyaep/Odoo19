@@ -29,8 +29,8 @@ class HotelAccommodation(models.Model):
 
     id_proof = fields.Char(string="Proof")
     guest_ids = fields.One2many('hotel.guest', 'guest_id', string="Guests")
-    order_ids = fields.One2many('hotel.order', 'accommodation_id', string="Order")
-    order_line_ids = fields.Many2many('hotel.order.list', string="Order Lines", compute='_compute_order')
+    order_ids = fields.One2many('hotel.order', 'accommodation_id', string="Order",domain="[('state','=','confirmed')]")
+    order_line_ids = fields.Many2many('hotel.order.list', string="Order Lines", compute='_compute_order',domain="[('state','=','confirmed')]")
 
     total_rent = fields.Float(string="Total Rent", compute='_compute_total_rent')
     total_all = fields.Float(string="Total", compute='_compute_total_all')
@@ -101,13 +101,14 @@ class HotelAccommodation(models.Model):
                         }))
             count=0
             for order in record.order_ids:
-                count+=1
-                lines.append(Command.create({
+                if order.state == 'confirmed':
+                   count+=1
+                   lines.append(Command.create({
                     'product_id': self.expense_id.id,
                     'quantity': 1,
                     'price_unit': order.total,
                     'name': 'Restaurant Expense {}'.format(count),
-                }))
+                  }))
             invoice = self.env['account.move'].create({
                     'move_type': 'out_invoice',
                     'partner_id': self.guests.id,
@@ -156,8 +157,11 @@ class HotelAccommodation(models.Model):
     def _compute_total_all(self):
         """Function to calculate total of rent and restaurant expenses"""
         for record in self:
-            total_orders = sum(record.order_ids.mapped('total'))
-            record.total_all = total_orders + record.total_rent
+            total_orders = 0
+            for order in record.order_ids:
+                if order.state == 'confirmed':
+                   total_orders = sum(order.mapped('total'))
+        record.total_all = total_orders + record.total_rent
 
     def action_get_orders(self):
         """Function to get orders for smart tab"""
@@ -186,29 +190,29 @@ class HotelAccommodation(models.Model):
     @api.depends('room', 'order_ids', 'order_line_ids')
     def product_payment(self):
        """Function to get payment lines"""
-       self.ensure_one()
        for record in self:
+         self.ensure_one()
+         line = []
          lines = []
          if record.room:
-            lines.append(Command.create({
+            line.append(Command.create({
                 'name': f"Room Rent",
                 'quantity': 1,
                 'price': record.total_rent,
             }))
          count = 0
          for order in record.order_ids:
-            count+=1
-            lines.append(Command.create({
-                'name': f"Restaurant Expense {count}",
-                'quantity': 1,
-                'price': order.total
-            }))
-
-         if record.payment_id:
-            record.payment_id.payment_line_ids = [Command.clear()] + lines
-         elif lines:
+             if order.state == 'confirmed':
+                 count+=1
+                 lines.append(Command.create({
+                      'name': f"Restaurant Expense {count}",
+                      'quantity': 1,
+                      'price': order.total
+                 }))
+         payment_lines = line + lines
+         if line or (lines and record.order_ids.state == 'confirmed'):
             new_payment = self.env['hotel.payment'].create({
-                'payment_line_ids': lines
+                'payment_line_ids': payment_lines
             })
             record.payment_id = new_payment.id
          else:

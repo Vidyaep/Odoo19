@@ -5,7 +5,7 @@
         <field name="arch" type="xml">
             <form string="Order Food">
                 <header>
-                   <button name="order_confirm" string="Confirm" type="object" invisible="not order_line_ids"></button>
+                   <button name="order_confirm" string="Confirm" type="object" invisible="state not in ['received']" class="oe_highlight"></button>
                    <button name="order_cancel" string="Cancel" type="object" invisible="not order_line_ids"></button>
                     <field name="state" widget="statusbar" statusbar_visible="draft,received,confirmed,cancel"/>
                </header>

@@ -1,8 +1,8 @@
 from odoo import fields,models
 class HotelKanban(models.TransientModel):
    _name = "hotel.kanban"
-   item_ids = fields.Many2one('hotel.item',string="Items")
-   order_ids = fields.Many2one('hotel.order',string="Orders")
+   item_ids = fields.Many2one('hotel.item',string="Items",ondelete='cascade')
+   order_ids = fields.Many2one('hotel.order',string="Orders",ondelete='cascade')
    item_name = fields.Char(string="Item Name")
    item_quantity = fields.Integer(string="Quantity")
    price = fields.Float(string="Price")

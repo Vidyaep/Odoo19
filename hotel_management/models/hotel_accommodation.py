@@ -2,6 +2,7 @@ from datetime import date
 from dateutil.relativedelta import relativedelta
 from odoo import fields, models, api, Command
 from odoo.exceptions import UserError, ValidationError
+from odoo.orm.decorators import ondelete
 
 
 class HotelAccommodation(models.Model):
@@ -9,6 +10,7 @@ class HotelAccommodation(models.Model):
     _description = 'Hotel Accommodation'
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _rec_name = 'sequence'
+    _order = 'check_in desc'
 
     sequence = fields.Char("Reference", copy=False, readonly=True, tracking=True, default='New')
     guests = fields.Many2one('res.partner', string="Guests")
@@ -24,13 +26,12 @@ class HotelAccommodation(models.Model):
     facility = fields.Many2many('hotel.facility', string="Facility")
     room = fields.Many2many('hotel.room', string="Room")
     status = fields.Selection(readonly=True, default='draft', tracking=True, required=True,
-                              selection=[('draft', 'Draft'), ('check-in', 'Check-in'),
-                                         ('check-out', 'Check-out'), ('cancel', 'Cancel')], string="Status")
+                              selection=[('draft', 'Draft'), ('check-in', 'Check-in'),('check-out', 'Check-out'), ('cancel', 'Cancel')], string="Status")
 
     id_proof = fields.Char(string="Proof")
     guest_ids = fields.One2many('hotel.guest', 'guest_id', string="Guests")
-    order_ids = fields.One2many('hotel.order', 'accommodation_id', string="Order",domain="[('state','=','confirmed')]")
-    order_line_ids = fields.Many2many('hotel.order.list', string="Order Lines", compute='_compute_order',domain="[('state','=','confirmed')]")
+    order_ids = fields.One2many('hotel.order', 'accommodation_id', string="Order",domain="[('state','=','confirmed')]",ondelete='cascade')
+    order_line_ids = fields.Many2many('hotel.order.list', string="Order Lines", compute='_compute_order',domain="[('state','=','confirmed')]",ondelete='cascade')
 
     total_rent = fields.Float(string="Total Rent", compute='_compute_total_rent')
     total_all = fields.Float(string="Total", compute='_compute_total_all')
@@ -123,6 +124,12 @@ class HotelAccommodation(models.Model):
                     'res_id': invoice.id,
                     "target": "current",
                 }
+
+    def cancel(self):
+        for record in self:
+            record.status = 'cancel'
+            record.rent = 0
+
     @api.depends('expected_days')
     def _compute_expected_date(self):
         """Function to calculate expected date"""

@@ -4,22 +4,23 @@ from email.policy import default
 from odoo import api, fields, models ,Command
 from odoo.addons.test_convert.tests.test_env import record
 from odoo.exceptions import UserError, ValidationError
+from odoo.orm.decorators import ondelete
 
 
 class HotelOrder(models.Model):
     _name = 'hotel.order'
-    accommodation_id = fields.Many2one('hotel.accommodation',string="Accommodation")
+    accommodation_id = fields.Many2one('hotel.accommodation',string="Accommodation",ondelete='cascade')
     room_id = fields.Many2many(related='accommodation_id.room',string="Room")
     guests=fields.Char(string="Guests",compute='compute_guests')
     order_date=fields.Datetime(string="Order Date",compute="compute_order_date")
     category_id=fields.Many2many('hotel.category',string="Category",store=True)
     quantity=fields.Integer(string="Quantity",store=True)
-    item_ids=fields.One2many('hotel.item','item',string="Items",store=True)
+    item_ids=fields.One2many('hotel.item','item',string="Items",store=True,ondelete='cascade')
     price=fields.Float(string="Price",store=True)
     subtotal=fields.Float(string="Subtotal")
     total=fields.Float(string="Total",compute='compute_total')
     description=fields.Char(string="Description",store=True)
-    order_line_ids = fields.One2many('hotel.order.list', 'order_id',string="Order Lines")
+    order_line_ids = fields.One2many('hotel.order.list', 'order_id',string="Order Lines",ondelete='cascade')
     state = fields.Selection(selection=[('draft','Draft'),('received','Received'),('confirmed','Confirmed'),('cancelled','Cancelled')],string="State",default='draft')
 
     @api.onchange('order_date')

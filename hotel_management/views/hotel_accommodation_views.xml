@@ -4,7 +4,25 @@
         <record id="hotel_accommodation" model="ir.actions.act_window">
             <field name="name">Accommodation</field>
           <field name="res_model">hotel.accommodation</field>
-          <field name="view_mode">list,form</field>
+          <field name="view_mode">list,form,search</field>
+       </record>
+
+       <record id="search_view" model="ir.ui.view">
+          <field name="name">Search View</field>
+          <field name="model">hotel.accommodation</field>
+          <field name="arch" type="xml">
+            <search>
+                <field name="room"/>
+                <field name="guests"/>
+                <field name="sequence"/>
+<!--                <filter string="Expected Checkouts" name="filter_check_out" domain="[('expected_date','==','context_today()')]"/>-->
+                <filter string="Room" name="group_by_room" context="{'group_by': 'room'}"/>
+                <filter string="Type" name="group_by_bed_type" context="{'group_by': 'bed_type'}"/>
+                <filter string="State" name="group_by_status" context="{'group_by': 'status'}"/>
+                <filter string="Check-in" name="filter_check_in" domain="[('status','==','check-in')]"/>
+                <filter string="Accommodation" name="filter_accommodation" domain="[('status','!=','cancel')]"/>
+            </search>
+          </field>
        </record>
 
        <record id="hotel_accommodation_list" model="ir.ui.view">
@@ -25,8 +43,7 @@
                    <field name="id_proof"/>
                </list>
            </field>
-       </record>
-
+       </record>'
         <record id="hotel_accommodation_form" model="ir.ui.view">
           <field name="name">Accommodation</field>
           <field name="model">hotel.accommodation</field>
@@ -35,6 +52,7 @@
                    <header>
                        <button name="checkin" type="object" class="oe_highlight" string="Check In" invisible="status not in ['draft']"></button>
                        <button name="checkout" type="object" class="oe_highlight" string="Check Out" invisible="status not in ['draft','check-in']"></button>
+                       <button name="cancel" type="object" string="Cancel"></button>
                         <field name="status" widget="statusbar" statusbar_visible="draft,check-in,check-out,cancel"/>
                    </header>
                    <sheet>

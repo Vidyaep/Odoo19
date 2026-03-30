@@ -3,7 +3,7 @@ class HotelPayment(models.Model):
     _name = 'hotel.payment'
     _description = 'Hotel Payment'
 
-    accommodation_id = fields.Many2one('hotel.accommodation',string="Accommodation")
+    accommodation_id = fields.Many2one('hotel.accommodation',string="Accommodation",ondelete='cascade')
     name = fields.Char(string='Name')
     quantity = fields.Float(string='Quantity')
     price = fields.Float(string='Price')

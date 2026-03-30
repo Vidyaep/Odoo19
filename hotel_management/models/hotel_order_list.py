@@ -1,8 +1,8 @@
 from odoo import fields,models,api
 class HotelOrderList(models.Model):
    _name = "hotel.order.list"
-   order_id = fields.Many2one('hotel.order',string="Order")
-   item_ids = fields.Many2one('hotel.item',string="Items")
+   order_id = fields.Many2one('hotel.order',string="Order",ondelete='cascade')
+   item_ids = fields.Many2one('hotel.item',string="Items",ondelete='cascade')
    item_name= fields.Char(string="Item Name",readonly=True)
    price = fields.Float(string="Price",readonly=True)
    description= fields.Char(string="Description",readonly=True)

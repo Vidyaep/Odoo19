@@ -15,12 +15,14 @@
                 <field name="room"/>
                 <field name="guests"/>
                 <field name="sequence"/>
-<!--                <filter string="Expected Checkouts" name="filter_check_out" domain="[('expected_date','==','context_today()')]"/>-->
+                <filter string="Expected Checkouts" name="filter_check_out" domain="[('status','in','check-in'),('expected_date','=',current_date)]"/>
+                <filter string="Next Day Expected Checkouts" name="filter_check_outs" domain="[('status','in','check-in'),('expected_date','=',(context_today() + datetime.timedelta(days=1)))]"/>
                 <filter string="Room" name="group_by_room" context="{'group_by': 'room'}"/>
                 <filter string="Type" name="group_by_bed_type" context="{'group_by': 'bed_type'}"/>
                 <filter string="State" name="group_by_status" context="{'group_by': 'status'}"/>
-                <filter string="Check-in" name="filter_check_in" domain="[('status','==','check-in')]"/>
-                <filter string="Accommodation" name="filter_accommodation" domain="[('status','!=','cancel')]"/>
+                <filter string="Check-in" name="filter_check_in" domain="[('status','=','check-in')]"/>
+                <filter string="Cancel" name="filter_cancel" domain="[('status','=','cancel')]"/>
+                <filter string="Exclude Cancelled" name="filter_accommodation" domain="[('status','!=','cancel')]"/>
             </search>
           </field>
        </record>
@@ -29,7 +31,8 @@
           <field name="name">Accommodation</field>
           <field name="model">hotel.accommodation</field>
           <field name="arch" type="xml">
-               <list>
+               <list decoration-danger="status in 'check-in' and expected_date == current_date"
+                     decoration-warning="status not in 'check-out' and expected_date == current_date">
                    <field name="sequence"/>
                    <field name="guests"/>
                    <field name="guest_address"/>
@@ -43,7 +46,7 @@
                    <field name="id_proof"/>
                </list>
            </field>
-       </record>'
+       </record>
         <record id="hotel_accommodation_form" model="ir.ui.view">
           <field name="name">Accommodation</field>
           <field name="model">hotel.accommodation</field>

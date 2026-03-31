@@ -128,7 +128,6 @@ class HotelAccommodation(models.Model):
     def cancel(self):
         for record in self:
             record.status = 'cancel'
-            record.rent = 0
 
     @api.depends('expected_days')
     def _compute_expected_date(self):

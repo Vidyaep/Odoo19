@@ -16,4 +16,3 @@ class HotelOrderList(models.Model):
       """Function to calculate subtotal"""
       for record in self:
          record.subtotal = record.price * record.quantity
-

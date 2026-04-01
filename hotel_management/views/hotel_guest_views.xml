@@ -1,21 +1,32 @@
-<!--<?xml version="1.0" encoding="UTF-8" ?>-->
-<!--<odoo>-->
-<!--    <data>-->
-<!--        <record id="hotel_guest_action" model="ir.actions.act_window">-->
-<!--            <field name="name">Guests</field>-->
-<!--            <field name="res_model">res.partner</field>-->
-<!--            <field name="view_mode">list,form</field>-->
-<!--        </record>-->
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="hotel_guests_view" model="ir.actions.act_window">
+            <field name="name">Hotel Guests</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">list,form</field>
+        </record>
 
-<!--        <record id="hotel_guests_view_form" model="ir.ui.view">-->
-<!--            <field name="name">Guests</field>-->
-<!--            <field name="model">res.partner</field>-->
-<!--            <field name="inherit_id" ref="base.view_partner_form" />-->
-<!--            <field name="arch" type="xml">-->
-<!--                <xpath expr="//field[@name='category_id']" position="after">-->
-<!--                    <field name="hotel_guest"/>-->
-<!--                </xpath>-->
-<!--            </field>-->
-<!--        </record>-->
-<!--    </data>-->
-<!--</odoo>-->
+        <record id="hotel_guests_view_list" model="ir.ui.view">
+            <field name="name">Hotel Guests</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='category_id']" position="after">
+                  <field name="hotel_guest"/>
+               </xpath>
+            </field>
+        </record>
+
+        <record id="hotel_guests_view_form" model="ir.ui.view">
+            <field name="name">Hotel Guests</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='category_id']" position="after">
+                  <field name="hotel_guest"/>
+               </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

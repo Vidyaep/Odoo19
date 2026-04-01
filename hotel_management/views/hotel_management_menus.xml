@@ -2,15 +2,14 @@
 <odoo>
     <data>
         <menuitem id="hotel_menu1" name="Hotel"/>
-        <menuitem id="hotel_menu2" name="Configuration" parent="hotel_menu1" />
-        <menuitem id="hotel_menu3" name="Rooms" parent="hotel_menu2" action="hotel_room"/>
-        <menuitem id="hotel_menu4" name="Facility" parent="hotel_menu2" action="hotel_facility"/>
-        <menuitem id="hotel_menu5" name="Food items" parent="hotel_menu2" action="hotel_item"/>
-        <menuitem id="hotel_menu6" name="Food category" parent="hotel_menu2" action="hotel_category"/>
-
-        <menuitem id="hotel_menu7" name="Reception" parent="hotel_menu1"/>
-        <menuitem id="hotel_menu8" name="Accommodation" parent="hotel_menu7" action="hotel_accommodation"/>
-<!--        <menuitem id="hotel_menu9" name="Hotel Guests" parent="hotel_menu7" action="hotel_guest_action"/>-->
-        <menuitem id="hotel_menu10" name="Order Food" parent="hotel_menu1" action="hotel_order_action"/>
+        <menuitem id="hotel_menu2" name="Reception" parent="hotel_menu1"/>
+        <menuitem id="hotel_menu3" name="Accommodation" parent="hotel_menu2" action="hotel_accommodation"/>
+        <menuitem id="hotel_menu4" name="Hotel Guests" parent="hotel_menu2" action="hotel_guests_view"/>
+        <menuitem id="hotel_menu5" name="Order Food" parent="hotel_menu1" action="hotel_order_action"/>
+        <menuitem id="hotel_menu6" name="Configuration" parent="hotel_menu1" />
+        <menuitem id="hotel_menu7" name="Rooms" parent="hotel_menu6" action="hotel_room"/>
+        <menuitem id="hotel_menu8" name="Facility" parent="hotel_menu6" action="hotel_facility"/>
+        <menuitem id="hotel_menu9" name="Food items" parent="hotel_menu6" action="hotel_item"/>
+        <menuitem id="hotel_menu10" name="Food category" parent="hotel_menu6" action="hotel_category"/>
     </data>
 </odoo>

@@ -22,6 +22,7 @@
         'views/hotel_accommodation_views.xml',
         'views/hotel_order_views.xml',
         'views/hotel_kanban_views.xml',
+        'views/hotel_guest_views.xml',
         'views/hotel_management_menus.xml',
     ],
 }

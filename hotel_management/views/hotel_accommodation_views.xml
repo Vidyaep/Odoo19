@@ -19,8 +19,8 @@
                 <filter string="Expected Checkouts" name="filter_check_out" domain="[('status','in','check-in'),('expected_date','=',current_date)]"/>
                 <filter string="Next Day Expected Checkouts" name="filter_check_outs" domain="[('status','in','check-in'),('expected_date','=',(context_today() + datetime.timedelta(days=1)))]"/>
                 <filter string="Room" name="group_by_room" context="{'group_by': 'room'}"/>
-                <filter string="Type" name="group_by_bed_type" context="{'group_by': 'bed_type'}"/>
-                <filter string="State" name="group_by_status" context="{'group_by': 'status'}"/>
+                <filter string="Bed Type" name="group_by_bed_type" context="{'group_by': 'bed_type'}"/>
+                <filter string="Status" name="group_by_status" context="{'group_by': 'status'}"/>
                 <filter string="Check-in" name="filter_check_in" domain="[('status','=','check-in')]"/>
                 <filter string="Cancel" name="filter_cancel" domain="[('status','=','cancel')]"/>
                 <filter string="Exclude Cancelled" name="filter_accommodation" domain="[('status','!=','cancel')]"/>
@@ -56,7 +56,7 @@
                    <header>
                        <button name="checkin" type="object" class="oe_highlight" string="Check In" invisible="status not in ['draft']"></button>
                        <button name="checkout" type="object" class="oe_highlight" string="Check Out" invisible="status not in ['draft','check-in']"></button>
-                       <button name="cancel" type="object" string="Cancel"></button>
+                       <button name="cancel" type="object" string="Cancel" invisible="status in ['cancel']"></button>
                         <field name="status" widget="statusbar" statusbar_visible="draft,check-in,check-out,cancel"/>
                    </header>
                    <sheet>

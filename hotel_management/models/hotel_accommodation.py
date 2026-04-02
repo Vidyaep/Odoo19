@@ -97,7 +97,7 @@ class HotelAccommodation(models.Model):
             lines.append(Command.create({
                             'product_id': self.rent_id.id,
                             'quantity': 1,
-                            'price_unit': record.room.rent,
+                            'price_unit': record.total_rent,
                             'name': 'Room Rent',
                         }))
             count=0

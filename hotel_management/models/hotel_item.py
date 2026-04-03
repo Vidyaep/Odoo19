@@ -11,6 +11,7 @@ class HotelItem(models.Model):
     price=fields.Monetary(string="Price",currency_field="currency_id")
     quantity=fields.Integer(string="Quantity")
     description=fields.Char(string="Description")
+    supplier_id =fields.Many2one('lunch.supplier',string="Supplier")
 
     def action_order_kanban_wizard(self):
         """Function to add items to kanban wizard"""
@@ -30,3 +31,13 @@ class HotelItem(models.Model):
                 'default_description': self.description,
             },
         }
+
+    def action_lunch(self):
+        """Function to add items to lunch wizard"""
+        self.env['lunch.product'].create({
+            'name': self.item_name,
+            'description': self.description,
+            'price': self.price,
+            'product_image': self.image,
+            'supplier_id': self.supplier_id,
+        })

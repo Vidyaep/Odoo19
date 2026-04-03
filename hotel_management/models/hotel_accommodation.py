@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, datetime
 from dateutil.relativedelta import relativedelta
 from odoo import fields, models, api, Command
 from odoo.exceptions import UserError, ValidationError
@@ -223,3 +223,10 @@ class HotelAccommodation(models.Model):
             record.payment_id = new_payment.id
          else:
             record.payment_id = False
+
+    def action_send_mail(self):
+        template = self.env.ref("hotel_management.email_template_action")
+        email_values = {'email_to': self.guests.email}
+        if self.expected_date == datetime.date.today():
+           template.send_mail(self.id, force_send=True, email_values=email_values)
+

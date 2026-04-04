@@ -26,6 +26,7 @@
         'views/hotel_guest_views.xml',
         'views/email_template_views.xml',
         'views/hotel_lunch_views.xml',
+        'views/hotel_archive_views.xml',
         'views/hotel_management_menus.xml',
     ],
 }

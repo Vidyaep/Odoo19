@@ -16,6 +16,7 @@
                 <field name="room"/>
                 <field name="guests"/>
                 <field name="sequence"/>
+                <filter string="Archived" name="unarchive" domain="[('active','=',False)]"/>
                 <filter string="Expected Checkouts" name="filter_check_out" domain="[('status','in','check-in'),('expected_date','=',current_date)]"/>
                 <filter string="Next Day Expected Checkouts" name="filter_check_outs" domain="[('status','in','check-in'),('expected_date','=',(context_today() + datetime.timedelta(days=1)))]"/>
                 <filter string="Room" name="group_by_room" context="{'group_by': 'room'}"/>
@@ -45,6 +46,7 @@
                    <field name="room"/>
                    <field name="status"/>
                    <field name="id_proof"/>
+                   <field name="active"/>
                </list>
            </field>
        </record>
@@ -86,6 +88,7 @@
                       <field name="room" widget="many2many_tags" options="{'no_create':true}" domain="[('facility','in',facility),('state','=','available'),('bed','in',bed_type)]"/>
                       <field name="status"/>
                       <field name="id_proof"/>
+                        <field name="active"/>
                     </group>
                        </group>
                        <notebook>

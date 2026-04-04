@@ -4,7 +4,7 @@
        <record id="email_template_action" model="mail.template">
            <field name="name">Remainder Mail</field>
            <field name="model_id" ref="hotel_management.model_hotel_accommodation"/>
-           <field name="subject"> "Checkout date is today {{ object.guests.name }}"</field>
+           <field name="subject"> "Checkout date is today {{ object.guests }}"</field>
            <field name="email_to">{{ object.guests.email}}</field>
            <field name="body_html" type="html">
                <div style="margin: 0px; padding: 0px;">

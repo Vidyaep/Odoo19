@@ -17,6 +17,7 @@
                   <field name="price"/>
                   <field name="quantity"/>
                   <field name="description"/>
+                  <field name="supplier_id"/>
               </list>
           </field>
        </record>
@@ -37,6 +38,7 @@
                         <field name="price"/>
                         <field name="quantity"/>
                         <field name="description"/>
+                        <field name="supplier_id"/>
                     </group>
                     </group>
                 </sheet>

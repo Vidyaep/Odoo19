@@ -8,6 +8,7 @@
            <field name="code">model.action_send_mail()</field>
            <field name='interval_number'>1</field>
            <field name='interval_type'>minutes</field>
+           <field name="nextcall">2026-04-06 07:05:00</field>
        </record>
    </data>
 </odoo>

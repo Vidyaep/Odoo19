@@ -1,7 +1,7 @@
 {
     'name': "Hotel Management",
     'version': '1.0',
-    'depends': ['base','mail','account','product','lunch'],
+    'depends': ['base','mail','account','product','lunch','base_automation'],
     'author': "Author Name",
     'license':"",
     'category': 'Hotel Management',

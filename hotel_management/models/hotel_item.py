@@ -1,4 +1,6 @@
 from odoo import fields, models
+from odoo.addons.test_convert.tests.test_env import record
+
 
 class HotelItem(models.Model):
     _name = 'hotel.item'
@@ -12,6 +14,7 @@ class HotelItem(models.Model):
     quantity=fields.Integer(string="Quantity")
     description=fields.Char(string="Description")
     supplier_id =fields.Many2one('lunch.supplier',string="Supplier")
+    product_id=fields.Many2one('lunch.product',string="Product")
 
     def action_order_kanban_wizard(self):
         """Function to add items to kanban wizard"""
@@ -34,10 +37,23 @@ class HotelItem(models.Model):
 
     def action_lunch(self):
         """Function to add items to lunch wizard"""
-        self.env['lunch.product'].create({
-            'name': self.item_name,
-            'description': self.description,
-            'price': self.price,
-            'product_image': self.image,
-            'supplier_id': self.supplier_id,
-        })
+        for record in self:
+           if record.category:
+              categ = self.env['lunch.product.category'].search([('name', '=', record.category.name)])
+              if categ:
+                 cat_id= categ
+              else:
+                  category_new = self.env['lunch.product.category'].create({
+                      'name':record.category.name,
+                  })
+                  cat_id = category_new
+
+              item =self.env['lunch.product'].create({
+                'name': record.item_name,
+                'description': record.description,
+                'price': record.price,
+                'category_id': cat_id.id,
+                'image_1920': record.image,
+                'supplier_id': record.supplier_id.id,
+              })
+              record.product_id = item.id

@@ -44,8 +44,8 @@ class HotelAccommodation(models.Model):
     payment_id = fields.Many2one('hotel.payment', string="Payment",compute='product_payment',store=True)
     payment_line_ids = fields.One2many(related='payment_id.payment_line_ids', string="Payment Lines")
     partner_id = fields.Many2one('res.partner', string="Customer")
-    cancelled_date = fields.Date(string="Cancelled Date",compute="_compute_cancelled_date")
-    active = fields.Boolean(string="Active")
+    cancelled_date = fields.Date(string="Cancelled Date")
+    active = fields.Boolean(string="Active",default=True)
 
     @api.depends('invoice_id')
     def compute_invoice_count(self):
@@ -130,6 +130,7 @@ class HotelAccommodation(models.Model):
     def cancel(self):
         for record in self:
             record.status = 'cancel'
+            record.cancelled_date = fields.Date.today()
 
     @api.depends('expected_days')
     def _compute_expected_date(self):
@@ -229,20 +230,12 @@ class HotelAccommodation(models.Model):
     def action_send_mail(self):
         for record in self:
             template = self.env.ref("hotel_management.email_template_action")
-            email_values = {'email_to':record.partner_id.email}
+            email_values = {'email_to':record.guests.email}
             print(email_values)
-            if record.expected_date == date.today():
-               template.send_mail(record.id, force_send=True, email_values=email_values)
+            template.send_mail(record.id, force_send=True, email_values=email_values)
 
-    @api.depends('status','expected_date')
-    def _compute_cancelled_date(self):
-        for record in self:
-            if record.status == 'cancel':
-                record.cancelled_date = fields.Datetime.now()
 
     def action_archive(self):
         for record in self:
-            days= fields.Date.today() - relativedelta(days=2)
-            if record.cancelled_date and record.cancelled_date > days:
-                record.action_archive()
-        return super().action_archive()
+            if record.status == 'cancel':
+                record.active = False

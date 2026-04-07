@@ -13,6 +13,7 @@
     'installable': True,
     'data': [
         'security/ir.model.access.csv',
+        'security/hotel_security.xml',
         'data/hotel_management_data.xml',
         'data/hotel_management_sequence.xml',
         'data/email_action.xml',

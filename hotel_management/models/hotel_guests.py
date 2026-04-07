@@ -2,7 +2,7 @@ from odoo import api, fields, models
 class HotelGuests(models.Model):
     _inherit = 'res.partner'
 
-    hotel_guest = fields.Boolean(string="Is Hotel Guest",readonly=True,compute='compute_is_guest')
+    hotel_guest = fields.Boolean(string="Is Hotel Guest",readonly=True,compute='compute_is_guest',store=True)
     accommodation_id = fields.Many2one('hotel.accommodation',string="Accommodation")
 
     @api.depends('accommodation_id.guests')

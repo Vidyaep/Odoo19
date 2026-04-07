@@ -228,14 +228,20 @@ class HotelAccommodation(models.Model):
             record.payment_id = False
 
     def action_send_mail(self):
-        for record in self:
-            template = self.env.ref("hotel_management.email_template_action")
-            email_values = {'email_to':record.guests.email}
-            print(email_values)
-            template.send_mail(record.id, force_send=True, email_values=email_values)
+        """Function to send mail"""
+        records = self.search([])
+        template = self.env.ref("hotel_management.email_template_action")
+        for record in records:
+            if record.guests.email and record.status=='check-in' and record.expected_date == fields.Date.today():
+               email_values = {'email_to':record.guests.email}
+               template.send_mail(record.id, force_send=True, email_values=email_values)
 
 
     def action_archive(self):
-        for record in self:
-            if record.status == 'cancel':
-                record.active = False
+        """Function to archive cancelled records"""
+        records = self.search([])
+        cancelled_days = fields.Date.today() - relativedelta(days=2)
+        print(cancelled_days)
+        for record in records:
+            if record.status == 'cancel' and record.cancelled_date <= cancelled_days :
+               record.active = False

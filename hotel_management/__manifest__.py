@@ -1,7 +1,7 @@
 {
     'name': "Hotel Management",
     'version': '1.0',
-    'depends': ['base','mail','account','product','lunch','base_automation'],
+    'depends': ['base','mail','account','sale','lunch','base_automation'],
     'author': "Author Name",
     'license':"",
     'category': 'Hotel Management',
@@ -12,8 +12,9 @@
     'application': True,
     'installable': True,
     'data': [
+        'security/hotel_management_groups.xml',
+        'security/hotel_management_security.xml',
         'security/ir.model.access.csv',
-        'security/hotel_security.xml',
         'data/hotel_management_data.xml',
         'data/hotel_management_sequence.xml',
         'data/email_action.xml',

@@ -10,6 +10,7 @@ class HotelOrderList(models.Model):
    subtotal= fields.Float(string="Subtotal",compute="compute_subtotal",store=True)
    quantity= fields.Float(string="Quantity",readonly=True)
    total= fields.Monetary(string="Total",store=True)
+   company_id = fields.Many2one('res.company', string="Company", default=lambda self: self.env.company)
 
    @api.depends('price', 'quantity')
    def compute_subtotal(self):

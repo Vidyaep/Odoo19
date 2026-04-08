@@ -1,4 +1,6 @@
 from datetime import date, datetime
+from email.policy import default
+
 from dateutil.relativedelta import relativedelta
 from odoo import fields, models, api, Command
 from odoo.exceptions import UserError, ValidationError
@@ -46,6 +48,7 @@ class HotelAccommodation(models.Model):
     partner_id = fields.Many2one('res.partner', string="Customer")
     cancelled_date = fields.Date(string="Cancelled Date")
     active = fields.Boolean(string="Active",default=True)
+    company_id = fields.Many2one('res.company', string="Company",default=lambda self: self.env.company)
 
     @api.depends('invoice_id')
     def compute_invoice_count(self):

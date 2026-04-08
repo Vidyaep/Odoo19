@@ -8,3 +8,4 @@ class HotelPaymentLine(models.Model):
     name = fields.Char(string="Description")
     quantity = fields.Integer(string="Quantity", default=1)
     price = fields.Float(string="Price")
+    company_id = fields.Many2one('res.company', string="Company", default=lambda self: self.env.company)

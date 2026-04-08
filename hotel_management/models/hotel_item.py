@@ -15,6 +15,7 @@ class HotelItem(models.Model):
     description=fields.Char(string="Description")
     supplier_id =fields.Many2one('lunch.supplier',string="Supplier")
     product_id=fields.Many2one('lunch.product',string="Product")
+    company_id = fields.Many2one('res.company', string="Company", default=lambda self: self.env.company)
 
     def action_order_kanban_wizard(self):
         """Function to add items to kanban wizard"""

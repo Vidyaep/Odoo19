@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="accommodation_record_rule" model="ir.rule">
+           <field name="name">Accommodation Rule</field>
+           <field name="model_id" ref="model_hotel_accommodation"/>
+           <field name="domain_force">[('company_id','in',company_ids+ [False])]</field>
+        </record>
+
+        <record id="category_record_rule" model="ir.rule">
+           <field name="name">Category Rule</field>
+           <field name="model_id" ref="model_hotel_category"/>
+           <field name="domain_force">[('company_id','in',company_ids+ [False])]</field>
+        </record>
+
+        <record id="facility_record_rule" model="ir.rule">
+           <field name="name">Facility Rule</field>
+           <field name="model_id" ref="model_hotel_facility"/>
+           <field name="domain_force">[('company_id','in',company_ids+ [False])]</field>
+        </record>
+
+        <record id="hotel_guest_record_rule" model="ir.rule">
+           <field name="name">Hotel Guest Rule</field>
+           <field name="model_id" ref="model_hotel_guest"/>
+           <field name="domain_force">[('company_id','in',company_ids+ [False])]</field>
+        </record>
+
+        <record id="item_record_rule" model="ir.rule">
+           <field name="name">Item Rule</field>
+           <field name="model_id" ref="model_hotel_item"/>
+           <field name="domain_force">[('company_id','in',company_ids+ [False])]</field>
+        </record>
+
+        <record id="order_record_rule" model="ir.rule">
+           <field name="name">Order Rule</field>
+           <field name="model_id" ref="model_hotel_order"/>
+           <field name="domain_force">[('company_id','in',company_ids+ [False])]</field>
+        </record>
+
+        <record id="order_list_record_rule" model="ir.rule">
+           <field name="name">Order List Rule</field>
+           <field name="model_id" ref="model_hotel_order_list"/>
+           <field name="domain_force">[('company_id','in',company_ids+ [False])]</field>
+        </record>
+
+        <record id="payment_record_rule" model="ir.rule">
+           <field name="name">Payment Rule</field>
+           <field name="model_id" ref="model_hotel_payment"/>
+           <field name="domain_force">[('company_id','in',company_ids+ [False])]</field>
+        </record>
+
+        <record id="payment_line_record_rule" model="ir.rule">
+           <field name="name">Payment Line Rule</field>
+           <field name="model_id" ref="model_hotel_payment_line"/>
+           <field name="domain_force">[('company_id','in',company_ids+ [False])]</field>
+        </record>
+
+        <record id="room_record_rule" model="ir.rule">
+           <field name="name">Room Rule</field>
+           <field name="model_id" ref="model_hotel_room"/>
+           <field name="domain_force">[('company_id','in',company_ids+ [False])]</field>
+        </record>
+    </data>
+</odoo>

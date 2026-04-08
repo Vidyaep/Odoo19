@@ -22,6 +22,7 @@ class HotelOrder(models.Model):
     description=fields.Char(string="Description",store=True)
     order_line_ids = fields.One2many('hotel.order.list', 'order_id',string="Order Lines",ondelete='cascade')
     state = fields.Selection(selection=[('draft','Draft'),('received','Received'),('confirmed','Confirmed'),('cancelled','Cancelled')],string="State",default='draft')
+    company_id = fields.Many2one('res.company', string="Company", default=lambda self: self.env.company)
 
     @api.onchange('order_date')
     def compute_order_date(self):

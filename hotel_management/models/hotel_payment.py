@@ -9,6 +9,7 @@ class HotelPayment(models.Model):
     price = fields.Float(string='Price')
     payment_line_ids = fields.One2many('hotel.payment.line', 'payment_id', string="Payment Lines")
     total_amount = fields.Float(string="Total", compute="_compute_total")
+    company_id = fields.Many2one('res.company', string="Company", default=lambda self: self.env.company)
 
     @api.depends('payment_line_ids.price')
     def _compute_total(self):

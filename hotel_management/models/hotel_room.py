@@ -12,5 +12,5 @@ class HotelRoom(models.Model):
     rent=fields.Monetary(string="Rent",currency_field="currency_id")
     facility=fields.Many2many('hotel.facility',string="Facility")
     state = fields.Selection(string="State",readonly=True,default='available',tracking=True,required=True,selection=[('available', 'Available'), ('not_available', 'Not Available')])
-
+    company_id = fields.Many2one('res.company', string="Company", default=lambda self: self.env.company)
 

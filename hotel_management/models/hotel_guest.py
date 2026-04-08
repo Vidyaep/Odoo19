@@ -6,3 +6,4 @@ class HotelGuest(models.Model):
     name = fields.Many2one('res.partner',string="Name")
     gender = fields.Selection([('male','male'),('female','female'),('other','Other')],string='Gender')
     age = fields.Integer('Age')
+    company_id = fields.Many2one('res.company', string="Company", default=lambda self: self.env.company)

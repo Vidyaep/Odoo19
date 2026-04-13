@@ -1,0 +1,4 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+inventory_transfers,inventory_transfer_model,model_stock_picking,base.group_user,1,0,0,0
+inventory_transfer_stock,inventory_internal_transfer,model_stock_picking,internal_transfer.group_transfer_user,1,1,0,0
+inventory_transfer_stocks,inventory_internal_transfers,model_stock_picking,internal_transfer.group_transfer_admin,1,1,1,1

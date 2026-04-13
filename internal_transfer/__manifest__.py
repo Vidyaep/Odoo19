@@ -12,6 +12,7 @@
     'application': True,
     'installable': True,
     'data': [
-        'views/internal_transfer_views.xml',
+        'security/internal_transfer_groups.xml',
+        'security/ir.model.access.csv',
     ],
 }

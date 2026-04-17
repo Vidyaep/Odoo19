@@ -7,17 +7,17 @@
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='state']" position="replace">
-                    <field name="state" widget="statusbar" statusbar_visible="draft,sent,sale,approved"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,sent,sale,to approve"/>
                 </xpath>
                 <xpath expr="//button[@name='%(sale.action_view_sale_advance_payment_inv)d']" position="before">
-                    <button name="action_approve" string="Approve" type="object" class="oe_highlight" invisible="state in 'draft,sent,approved'"/>
+                    <button name="action_approve" string="Approve" type="object" class="oe_highlight" invisible="state in 'draft,sent,to approve'"/>
                 </xpath>
                 <xpath expr="//button[@name='%(sale.action_view_sale_advance_payment_inv)d']" position="attributes">
-                    <attribute name="invisible">state not in 'approved'</attribute>
+                    <attribute name="invisible">state not in 'to approve'</attribute>
                 </xpath>
                 <xpath expr="//field[@name='partner_id']" position="after">
                     <field name="approving_person_id"/>
-                    <field name="approved"/>
+                    <field name="approve_status"/>
                 </xpath>
             </field>
         </record>

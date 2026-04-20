@@ -244,7 +244,6 @@ class HotelAccommodation(models.Model):
         """Function to archive cancelled records"""
         records = self.search([])
         cancelled_days = fields.Date.today() - relativedelta(days=2)
-        print(cancelled_days)
         for record in records:
             if record.status == 'cancel' and record.cancelled_date <= cancelled_days :
                record.active = False

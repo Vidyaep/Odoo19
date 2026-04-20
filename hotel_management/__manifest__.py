@@ -15,6 +15,8 @@
         'security/hotel_management_groups.xml',
         'security/hotel_management_security.xml',
         'security/ir.model.access.csv',
+        'report/hotel_management_report.xml',
+        'report/hotel_management_report_template.xml',
         'data/hotel_management_data.xml',
         'data/hotel_management_sequence.xml',
         'data/email_action.xml',
@@ -29,6 +31,7 @@
         'views/email_template_views.xml',
         'views/hotel_lunch_views.xml',
         'views/hotel_archive_views.xml',
+        'views/hotel_report_views.xml',
         'views/hotel_management_menus.xml',
     ],
 }

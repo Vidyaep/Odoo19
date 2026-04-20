@@ -10,3 +10,4 @@ from . import hotel_order_list
 from . import hotel_payment
 from . import hotel_payment_line
 from . import hotel_guests
+from . import hotel_report

@@ -1,4 +1,5 @@
 id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+access_report_model,access_report_model,model_hotel_room,base.group_user,1,1,0,0
 access_room_model,access_room_model,model_hotel_room,base.group_user,1,1,0,0
 access_facility_model,access_facility_model,model_hotel_facility,base.group_user,1,1,0,0
 access_food_items,access_food_items,model_hotel_item,base.group_user,1,1,0,0
@@ -20,7 +21,7 @@ access_rooms_model,access_room_model1,model_hotel_room,hotel_management.group_ho
 access_food_item,access_food_items1,model_hotel_item,hotel_management.group_hotel_manager,1,1,1,1
 access_orders_list,access_order_list1,model_hotel_order_list,hotel_management.group_hotel_manager,1,1,1,1
 access_facilities_model,access_facility_model1,model_hotel_facility,hotel_management.group_hotel_manager,1,1,1,1
-access_food_item,access_food_items1,model_hotel_item,hotel_management.group_hotel_manager,1,1,1,1
+access_hotel_report,access_hotel_report,model_hotel_report,hotel_management.group_hotel_manager,1,1,1,1
 access_food_categories,access_food_category1,model_hotel_category,hotel_management.group_hotel_manager,1,1,1,1
 access_accommodations,access_accommodation1,model_hotel_accommodation,hotel_management.group_hotel_receptionist,1,1,1,0
 access_orders,access_order1,model_hotel_order,hotel_management.group_hotel_receptionist,1,1,1,0

@@ -10,15 +10,15 @@
                        <br></br>
                        <p>
                            Date from :
-                           <span t-field="o.check_in"/>
+                           <span t-field="o.date_from"/>
                        </p>
                        <p>
                            Date to :
-                           <span t-field="o.check_out"/>
+                           <span t-field="o.date_to"/>
                        </p>
                        <p>
                            Guest Name :
-                           <span t-field="o.guests"/>
+                           <span t-field="o.guest_name"/>
                        </p>
                    </div>
                </t>

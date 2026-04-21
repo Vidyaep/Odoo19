@@ -11,8 +11,8 @@
                    <field name="guest_name"/>
                </group>
                <footer>
-               <button name="generate" string="Generate" type="object"></button>
-                   <button string="Cancel" type="object"></button>
+               <button name="generate" string="Generate" class="oe_highlight" type="object"></button>
+               <button string="Cancel" type="object"></button>
                </footer>
            </form>
        </field>

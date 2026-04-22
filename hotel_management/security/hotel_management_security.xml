@@ -64,6 +64,7 @@
         <record id="hotel_report_rule" model="ir.rule">
            <field name="name">Report Rule</field>
            <field name="model_id" ref="model_hotel_report"/>
+            <field name="domain_force">[('company_id','in',company_ids+ [False])]</field>
         </record>
     </data>
 </odoo>

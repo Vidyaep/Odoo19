@@ -3,7 +3,7 @@
    <record id="action_hotel_management_report" model="ir.actions.report">
        <field name="name">Hotel Management Report</field>
        <field name="model">hotel.report</field>
-       <field name="report_type">qweb-html</field>
+       <field name="report_type">qweb-pdf</field>
        <field name="report_name">hotel_management.hotel_management_report_details</field>
        <field name="report_file">hotel_management.hotel_management_report_details</field>
        <field name="print_report_name">'Hotel Management Report'</field>

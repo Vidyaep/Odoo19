@@ -11,6 +11,7 @@
         <menuitem id="hotel_menu8" name="Facility" parent="hotel_menu6" action="hotel_facility"/>
         <menuitem id="hotel_menu9" name="Food items" parent="hotel_menu6" action="hotel_item"/>
         <menuitem id="hotel_menu10" name="Food category" parent="hotel_menu6" action="hotel_category"/>
-        <menuitem id="hotel_menu11" name="Hotel Management Report" parent="hotel_menu1" action="action_hotel_report"/>
+        <menuitem id="hotel_menu11" name="Hotel Management Report" parent="hotel_menu1"/>
+        <menuitem id="hotel_menu12" name="Hotel Management Report" parent="hotel_menu11" action="action_hotel_report"/>
     </data>
 </odoo>

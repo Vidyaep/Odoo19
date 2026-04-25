@@ -1,6 +1,7 @@
 from time import strptime
-
+import json
 from odoo import api, fields, models
+from odoo.tools import json_default
 from odoo.addons.test_convert.tests.test_env import data
 from odoo.exceptions import UserError
 
@@ -14,25 +15,33 @@ class HotelReport(models.TransientModel):
     company_id = fields.Many2one('res.company',string='Company',default=lambda self: self.env.company)
 
     def generate(self):
-        # print(self.read()[0])
-        query = """select a.sequence,r.name,a.check_in,a.check_out,a.status from hotel_accommodation as a left join res_partner as r on a.guests=r.id where a.active=True"""
+        query = """select a.sequence,r.name,a.check_in,a.check_out,a.status from hotel_accommodation as a left join res_partner as r on a.guests=r.id"""
         if self.guest_name:
-            query += """ and a.guests = %s""" %(self.guest_name.id)
-            # self.env.cr.execute(query, (self.guest_name.id,))
-        # date_from = str(self.date_from)
-        # date_checkin = strptime(date_from, '%Y-%m-%d')
-        if self.date_from:
-            query += """ and a.check_in >= '%s' and a.check_out < '%s'""" %(self.date_from, self.date_to)
-        #     # self.env.cr.execute(query,(self.date_from,))
-        # date_to = str(self.date_to)
-        # date_checkout = strptime(date_to, '%Y-%m-%d')
-        # if self.date_to:
-        #     query += """ and a.check_out >= '%s'""" %(self.date_to)
-        #     # self.env.cr.execute(query,(self.date_to,))
+            query += """ where a.guests = %s""" %(self.guest_name.id)
+        if self.date_from and self.date_to:
+            query += """ and a.check_in >= '%s' and a.check_in <= '%s'""" %(self.date_from, self.date_to)
         self.env.cr.execute(query)
         results = self.env.cr.dictfetchall()
         print(results)
         return results
 
-    def cancel(self):
-        self.clear()
+    def generate_xlsx(self):
+        query = """select a.sequence,r.name,a.check_in,a.check_out,a.status from hotel_accommodation as a left join res_partner as r on a.guests=r.id"""
+        if self.guest_name:
+            query += """ where a.guests = %s""" %(self.guest_name.id)
+        if self.date_from and self.date_to:
+            query += """ and a.check_in >= '%s' and a.check_in <= '%s'""" %(self.date_from, self.date_to)
+        self.env.cr.execute(query)
+        results = self.env.cr.dictfetchall()
+        data = {
+            'results':results,
+        }
+        return {
+            'type': 'ir.actions.report',
+            'data': {'model': 'hotel.report',
+                     'options': json.dumps(data,default=json_default),
+                     'output_format': 'xlsx',
+                     'report_name': 'Hotel Management Report',
+                     },
+            'report_type': 'xlsx',
+        }

@@ -1,7 +1,7 @@
 {
     'name': "Hotel Management",
     'version': '1.0',
-    'depends': ['base','mail','account','sale','lunch','base_automation'],
+    'depends': ['base','mail','account','sale','lunch','base_automation','web'],
     'author': "Author Name",
     'license':"",
     'category': 'Hotel Management',
@@ -34,4 +34,9 @@
         'views/hotel_report_views.xml',
         'views/hotel_management_menus.xml',
     ],
+    'assets': {
+       'web.assets_backend':[
+          'static/js/action_manager.js',
+       ],
+   }
 }

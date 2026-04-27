@@ -1,9 +1,8 @@
-from time import strptime
+import io
 import json
+import xlsxwriter
 from odoo import api, fields, models
 from odoo.tools import json_default
-from odoo.addons.test_convert.tests.test_env import data
-from odoo.exceptions import UserError
 
 
 class HotelReport(models.TransientModel):
@@ -36,6 +35,7 @@ class HotelReport(models.TransientModel):
         data = {
             'results':results,
         }
+        print(data)
         return {
             'type': 'ir.actions.report',
             'data': {'model': 'hotel.report',
@@ -45,3 +45,24 @@ class HotelReport(models.TransientModel):
                      },
             'report_type': 'xlsx',
         }
+
+    def get_xlsx_report(self, data, response):
+        output = io.BytesIO()
+        workbook = xlsxwriter.Workbook(output, {'in_memory': True})
+        sheet = workbook.add_worksheet()
+        cell_format = workbook.add_format({'font_size': '12px', 'align': 'center'})
+        head = workbook.add_format({'align': 'center', 'bold': True, 'font_size': '20px'})
+        txt = workbook.add_format({'font_size': '10px', 'align': 'center'})
+        sheet.merge_range('A2:J3', 'HOTEL MANAGEMENT REPORT', head)
+        sheet.merge_range('A4:B4', 'SL NO', cell_format)
+        sheet.merge_range('C4:D4', 'GUEST', cell_format)
+        sheet.merge_range('E4:F4', 'CHECK IN', cell_format)
+        sheet.merge_range('G4:H4', 'CHECK OUT', cell_format)
+        sheet.merge_range('I4:J4', 'STATUS', cell_format)
+        for i, result in enumerate(data['results'],start=5):
+            sheet.merge_range(f'A{i}:B{i}', result, txt)
+        print("1")
+        workbook.close()
+        output.seek(0)
+        response.stream.write(output.read())
+        output.close()
